@@ -3,18 +3,15 @@ const router  = express.Router();
 const User    = require('../models/user');
 const bcrypt  = require('bcrypt');
 
+//login route for existing users
 router.post('/login', async (req, res) => {
-
   // First query the database to see if the user exists
   try {
-
     const foundUser = await User.findOne({username: req.body.username});
     console.log(foundUser, ' foundUser');
-
      // If the user exists we'll use bcrypt to see if their password
-  // is valid
+    // is valid
   if(foundUser){
-
     // bcrypt compare returns true // or false
     if(bcrypt.compareSync(req.body.password, foundUser.password)){
        // if valid, we'll set the session
@@ -40,7 +37,6 @@ router.post('/login', async (req, res) => {
           }
       })
     }
-
   } else {
     // send message back to client that
     // thier username or password is incorrect
@@ -51,31 +47,22 @@ router.post('/login', async (req, res) => {
             message: 'Username or Password incorrect'
           }
       })
-
   }
-
-
-
-
   } catch(err){
     res.send(err);
   }
-
 });
 
-
+//route for register for new user
 router.post('/register', async (req, res) => {
-
   // Encrypt our password
   const password = req.body.password;
-
   // encrypt our password
   const hashedPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   console.log(hashedPassword)
 
   req.body.password = hashedPassword;
-
-  // We create our use
+  // We create our user
   try {
       const createdUser = await User.create(req.body);
       console.log(createdUser, ' created user');
@@ -91,16 +78,13 @@ router.post('/register', async (req, res) => {
             message: "User Logged In"
           }
       })
-
   } catch (err){
     res.send(err)
   }
-
 });
 
-
+//logout route
 router.get('/logout', (req, res) => {
-
   req.session.destroy((err) => {
     if(err){
       res.send(err);

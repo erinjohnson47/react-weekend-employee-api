@@ -10,6 +10,6 @@ const employeeSchema = new mongoose.Schema({
 });
 
 
-// Exporting the whole fruits array
+// Exporting the whole employee array
 // and it will be named whatever we require as
 module.exports = mongoose.model('Employee', employeeSchema);

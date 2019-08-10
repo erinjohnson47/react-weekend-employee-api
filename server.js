@@ -8,7 +8,7 @@ require('./db/db');
 
 
 app.use(session({
-  secret: 'keyboard cat',
+  secret: 'guitar doggo smile',
   resave: false,
   saveUninitialized: false
 }));
@@ -16,7 +16,6 @@ app.use(session({
 // SET UP CORS AS MIDDLEWARE, SO any client can make a request to our server
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
 
 const corsOptions = {
   origin: 'http://localhost:3000', // when you deploy your react app, this is where you put the address,
@@ -32,7 +31,7 @@ app.use(cors(corsOptions));
 const employeeController = require('./controllers/employeeController');
 const authController  = require('./controllers/authController');
 
-app.use('/api/v1/employee', employeeController);
+app.use('/api/v1/employees', employeeController);
 app.use('/auth', authController);
 
 app.listen(process.env.PORT || 9000, () => {

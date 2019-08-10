@@ -8,6 +8,6 @@ const UserSchema = new mongoose.Schema({
 });
 
 
-// Exporting the whole fruits array
+// Exporting the whole user array
 // and it will be named whatever we require as
 module.exports = mongoose.model('User', UserSchema);
